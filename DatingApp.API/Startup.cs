@@ -26,8 +26,14 @@ namespace DatingApp.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        //it allows us to create services which can be injected into our application
+        //it is also called the dependency injection container
         public void ConfigureServices(IServiceCollection services)
         {
+            //add DbContext & pass in our type which is datacontext
+            //we pass in an expression for the dbcontext on which database driver to use
+            //we specify the connection string to use
+            //we add cors support as a service
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors();
@@ -44,9 +50,11 @@ namespace DatingApp.API
             else
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //this is a strict security transport header
+                //app.UseHsts();
             }
 
+            //add CORS support as middleware
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseMvc();

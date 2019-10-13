@@ -16,6 +16,10 @@ export class ValueComponent implements OnInit {
     this.getValues();
   }
 
+  //get method takes in a url as a string as well as other option you
+  //can add to the header
+  //it returns an observable of the body of the data from the API
+  //inorder to extract the body of the observable you need to subscribe to it 
   getValues() {
     this.http.get('http://localhost:5000/api/values').subscribe(response => {
       this.values = response;

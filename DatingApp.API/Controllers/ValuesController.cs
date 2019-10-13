@@ -9,31 +9,45 @@ using Microsoft.EntityFrameworkCore;
 namespace DatingApp.API.Controllers
 {
 
-    
-
+    //this is the base uri
+    //http://localhost:5000/api/
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
         private readonly DataContext _context;
 
+        //we need to inject our DataContext into out class through our constructor
+        //and give it a name of context
         public ValuesController(DataContext context)
         {
+        //we refer to context as _context to have access throughout our entire class    
         _context = context;
         
         }
 
+        //IActionResult allows us return http responses like 200 ok e.t.c
+        //we tell the method that its an async method
+        //we return a task of type IActionResult
+        //task represents asychronous operation that returns a value & open the thread to allow other requests
         // GET api/values
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
             //throw new Exception("Test Exception");
+            //_context gives us access to entity framework methods(dbset)
+            //we store database values in a variable
+            //inorder to get the values as a list we use to ToList method
             var values = await _context.Values.ToListAsync();
 
+            //we return http 200 ok response along with our values
             return Ok(values);
         }
 
         // GET api/values/5
+        //because we want to get aspecific value we use firstordefault
+        //this returns null rather than exception if the value isnt found
+        //firstordefault takes in a lambda expression
         [HttpGet("{id}")]
         public IActionResult GetValue(int id)
         {
