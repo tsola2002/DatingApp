@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ namespace DatingApp.API.Controllers
 
     //this is the base uri
     //http://localhost:5000/api/
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
 
@@ -50,6 +52,7 @@ namespace DatingApp.API.Controllers
         //because we want to get aspecific value we use firstordefault
         //this returns null rather than exception if the value isnt found
         //firstordefault takes in a lambda expression
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetValue(int id)
         {
