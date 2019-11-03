@@ -35,6 +35,7 @@ namespace DatingApp.API.Controllers
         //we return a task of type IActionResult
         //task represents asychronous operation that returns a value & open the thread to allow other requests
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {

@@ -18,7 +18,7 @@ export class NavComponent implements OnInit {
   }
 
   login() {
-    // checking for typed in username
+    // checking for typed in username & password
     // console.log(this.model);
 
     // our login method will take in the form fields
