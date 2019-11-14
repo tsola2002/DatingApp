@@ -60,48 +60,59 @@ namespace DatingApp.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
+            try {
 
-            //if the user does not exist display a 401(Unauthorized request)
-            if (userFromRepo == null) 
-            return Unauthorized();
+                //throw new Exception("Computer says no!");
 
-            //we now need to build a tokken that we'll return to the user
-            //we create a claim variable which will store the claim name & its type
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username)
-            };
+                var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
-            //we build a key to sign our token(to make sure that the token is valid)
-            //we store the key as byte array and pull it from settings because we need to use it in
-            //different places
-            var key = new SymmetricSecurityKey(Encoding.UTF8
-            .GetBytes(_config.GetSection("AppSettings:Token").Value));
+                //if the user does not exist display a 401(Unauthorized request)
+                if (userFromRepo == null) 
+                return Unauthorized();
 
-            //with the key we create signing credentials
-            //this will use the security key & algorithm
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+                //we now need to build a tokken that we'll return to the user
+                //we create a claim variable which will store the claim name & its type
+                var claims = new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
+                    new Claim(ClaimTypes.Name, userFromRepo.Username)
+                };
 
-            //we create the token descriptor which will add the claim name & expiry date
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds
-            };
+                //we build a key to sign our token(to make sure that the token is valid)
+                //we store the key as byte array and pull it from settings because we need to use it in
+                //different places
+                var key = new SymmetricSecurityKey(Encoding.UTF8
+                .GetBytes(_config.GetSection("AppSettings:Token").Value));
 
-            //We create a token handler
-            var tokenHandler = new JwtSecurityTokenHandler();
+                //with the key we create signing credentials
+                //this will use the security key & algorithm
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-            //with the handler, we create a token & pass in the token descriptor
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+                //we create the token descriptor which will add the claim name & expiry date
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.Now.AddDays(1),
+                    SigningCredentials = creds
+                };
 
-            //we use the token handler to write our token as a response to our client
-            return Ok(new {
-                token = tokenHandler.WriteToken(token)
-            });
+                //We create a token handler
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                //with the handler, we create a token & pass in the token descriptor
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+
+                //we use the token handler to write our token as a response to our client
+                return Ok(new {
+                    token = tokenHandler.WriteToken(token)
+                });
+        
+            }
+            catch {
+                return StatusCode(500, "Computer really says no");
+            }
+            
         }
     }
-}
+
+}    
