@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-nav',
@@ -12,7 +13,7 @@ export class NavComponent implements OnInit {
   model: any = {};
 
   // we inject our auth service into our constructor
-  constructor( private authService: AuthService) { }
+  constructor(private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
   }
@@ -25,9 +26,11 @@ export class NavComponent implements OnInit {
     // the method returns an observable we have to subscribe to observable
     // we use the nxt overload bcos we want to do something if theres an error
     this.authService.login(this.model).subscribe(next => {
-      console.log('Logged in successfully');
+    // console.log('Logged in successfully');
+      this.alertify.success('Logged in successfully');
     }, error => {
-      console.log(error);
+    // console.log(error);
+      this.alertify.error(error);
     });
   }
 
@@ -38,7 +41,8 @@ export class NavComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    console.log('logged out');
+  // console.log('logged out');
+  this.alertify.message('logged out');
   }
 
 }
