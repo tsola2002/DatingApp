@@ -1,28 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/isaac/Documents/fullstack-projects/DatingApp/DatingApp.API/DatingApp.API.csproj": {}
+    "C:\\Users\\FINTRAK\\Documents\\full-stack-projects\\DatingApp\\DatingApp.API\\DatingApp.API.csproj": {}
   },
   "projects": {
-    "/Users/isaac/Documents/fullstack-projects/DatingApp/DatingApp.API/DatingApp.API.csproj": {
+    "C:\\Users\\FINTRAK\\Documents\\full-stack-projects\\DatingApp\\DatingApp.API\\DatingApp.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/isaac/Documents/fullstack-projects/DatingApp/DatingApp.API/DatingApp.API.csproj",
+        "projectUniqueName": "C:\\Users\\FINTRAK\\Documents\\full-stack-projects\\DatingApp\\DatingApp.API\\DatingApp.API.csproj",
         "projectName": "DatingApp.API",
-        "projectPath": "/Users/isaac/Documents/fullstack-projects/DatingApp/DatingApp.API/DatingApp.API.csproj",
-        "packagesPath": "/Users/isaac/.nuget/packages/",
-        "outputPath": "/Users/isaac/Documents/fullstack-projects/DatingApp/DatingApp.API/obj/",
+        "projectPath": "C:\\Users\\FINTRAK\\Documents\\full-stack-projects\\DatingApp\\DatingApp.API\\DatingApp.API.csproj",
+        "packagesPath": "C:\\Users\\FINTRAK\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\FINTRAK\\Documents\\full-stack-projects\\DatingApp\\DatingApp.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/isaac/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\FINTRAK\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
