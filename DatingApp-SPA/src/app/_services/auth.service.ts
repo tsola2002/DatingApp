@@ -16,6 +16,7 @@ export class AuthService {
   // we store our baseurl in a variable
   baseUrl = 'http://localhost:5000/api/auth/';
   jwtHelper = new JwtHelperService();
+  decodedToken: any;
 
 // we need to inject the http client service
 constructor(private http: HttpClient) { }
@@ -35,6 +36,8 @@ login( model: any) {
       // if theres a user then store the token in local storage
       if (user) {
         localStorage.setItem('token', user.token);
+        this.decodedToken = this.jwtHelper.decodeToken(user.token);
+        console.log(this.decodedToken);
       }
     })
   );

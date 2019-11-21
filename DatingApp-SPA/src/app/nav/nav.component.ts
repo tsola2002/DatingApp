@@ -13,7 +13,7 @@ export class NavComponent implements OnInit {
   model: any = {};
 
   // we inject our auth service into our constructor
-  constructor(private authService: AuthService, private alertify: AlertifyService) { }
+  constructor(public authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
   }
@@ -41,7 +41,7 @@ export class NavComponent implements OnInit {
   logout() {
     localStorage.removeItem('token');
   // console.log('logged out');
-  this.alertify.message('logged out');
+    this.alertify.message('logged out');
   }
 
 }
