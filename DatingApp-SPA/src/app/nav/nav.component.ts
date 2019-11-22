@@ -15,7 +15,7 @@ export class NavComponent implements OnInit {
 
   // we inject our auth service into our constructor
   constructor(public authService: AuthService, private alertify: AlertifyService,
-    private router: Router) { }
+              private router: Router) { }
 
   ngOnInit() {
   }
