@@ -10,9 +10,16 @@ import { AuthGuard } from './_guards/auth.guard';
 // the last componet is a wildcard component
 // angular router operates on a first line wins system
 export const appRoutes: Routes = [
-    { path: 'home', component: HomeComponent },
-    { path: 'members', component: MemberListComponent, canActivate: [AuthGuard] },
-    { path: 'messages', component: MessagesComponent },
-    { path: 'lists', component: ListsComponent },
-    { path: '**', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', component: HomeComponent },
+    {
+        path: '',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthGuard],
+        children: [
+            { path: 'members', component: MemberListComponent, canActivate: [AuthGuard] },
+            { path: 'messages', component: MessagesComponent },
+            { path: 'lists', component: ListsComponent },
+        ]
+    },
+    { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
