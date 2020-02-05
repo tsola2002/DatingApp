@@ -46,6 +46,7 @@ namespace DatingApp.API
             services.AddCors();
             //addscoped makes the service is created once per http request
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IDatingRepository, DatingRepository>();
             //specify authentication scheme that were using
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
