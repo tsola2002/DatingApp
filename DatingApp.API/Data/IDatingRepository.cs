@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DatingApp.API.Data
 {
-    public class IDatingRepository
+    public interface IDatingRepository
     {
         // we use c# generics to create a method that will save us from creating two separate methods
         // adding  a user & a photo we create one method to specify a type
@@ -13,5 +13,5 @@ namespace DatingApp.API.Data
         Task<bool> SaveAll();
         Task<IEnumerable<User>> GetUsers();
         Task<User> GetUser(int id);
-    }
+    }    
 }
