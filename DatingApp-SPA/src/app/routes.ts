@@ -4,6 +4,7 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MessagesComponent } from './messages/messages.component';
 import { ListsComponent } from './lists/lists.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 
 // routes is an array with each route as an object
 // we provide a path and match it to a component
@@ -17,6 +18,7 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: 'members', component: MemberListComponent, canActivate: [AuthGuard] },
+            { path: 'members/:id', component: MemberDetailComponent, canActivate: [AuthGuard] },
             { path: 'messages', component: MessagesComponent },
             { path: 'lists', component: ListsComponent },
         ]

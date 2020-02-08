@@ -24,7 +24,7 @@ getUsers(): Observable<User[]> {
 // method to get detailed user which will take in an id
 // authorization token needs to send along with the request
 getUser(id): Observable<User> {
-  return this.http.get<User>(this.baseUrl + 'users' + id);
+  return this.http.get<User>(this.baseUrl + 'users/' + id);
 }
 
 }
