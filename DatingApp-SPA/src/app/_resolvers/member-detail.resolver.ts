@@ -1,33 +1,12 @@
-<<<<<<< HEAD
-import { Injectable } from '@angular/core';
-import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { User } from '../_models/user';
-=======
 import {Injectable} from '@angular/core';
 import { User } from '../_models/user';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
->>>>>>> 80346de9f59cff1c15b612715dfc0cb721601a14
 import { UserService } from '../_services/user.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
-<<<<<<< HEAD
-    export class MemberDetailResolver implements Resolve<User> {
-        constructor(private userService: UserService, private router: Router, private alertify: AlertifyService) { }
-
-       resolve(route: ActivatedRouteSnapshot): Observable<User> {
-           return this.userService.getUser(route.params['id']).pipe(
-               catchError(error => {
-                   this.alertify.error('Problem retrieving data');
-                   this.router.navigate(['/members']);
-                   return of(null);
-               })
-           );
-       }
-    }
-=======
 // the member detailed resolver will resolve to a user
 export class MemberDetailResolver implements Resolve<User> {
     // in the constructor we bring userService to get the user, Router, & Alertify
@@ -54,4 +33,3 @@ export class MemberDetailResolver implements Resolve<User> {
         );
     }
 }
->>>>>>> 80346de9f59cff1c15b612715dfc0cb721601a14
