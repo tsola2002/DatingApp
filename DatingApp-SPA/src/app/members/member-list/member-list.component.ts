@@ -3,6 +3,7 @@ import { UserService } from '../../_services/user.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { User } from '../../_models/user';
 import { error } from 'util';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-member-list',
@@ -16,21 +17,23 @@ export class MemberListComponent implements OnInit {
   users: User[];
 
   // we use dependency injection to inject our user service & alertify service
-  constructor(private userService: UserService , private alertify: AlertifyService) { }
+  constructor(private userService: UserService , private alertify: AlertifyService, private route: ActivatedRoute ) { }
 
   ngOnInit() {
-    this.loadUsers();
+    this.route.data.subscribe(data => {
+      this.users = data['users'];
+    });
   }
 
   // this method will go out to our user service & load users
   // it will subscribe to the method since it returns an observable(we return the array users)
   // we use alertify to handle any errors
-  loadUsers() {
-    this.userService.getUsers().subscribe((users: User[]) => {
-      this.users = users;
-    }, error => {
-      this.alertify.error(error);
-    });
-  }
+  // loadUsers() {
+  //   this.userService.getUsers().subscribe((users: User[]) => {
+  //     this.users = users;
+  //   }, error => {
+  //     this.alertify.error(error);
+  //   });
+  // }
 
 }
