@@ -17,10 +17,11 @@ export class MemberDetailComponent implements OnInit {
 
   constructor(private userService: UserService, private alertify: AlertifyService, private route: ActivatedRoute) { }
 
+  // we want to pass our data to the route, then retrieve data from the route resolver
+  // there will be no way the component will be loaded without having the data available
   ngOnInit() {
-    // this.loadUser();
+    // we need to subscribe to the route
     this.route.data.subscribe(data => {
-      // tslint:disable-next-line: no-string-literal
       this.user = data['user'];
     });
   }

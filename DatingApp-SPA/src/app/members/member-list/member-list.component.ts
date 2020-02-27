@@ -17,9 +17,12 @@ export class MemberListComponent implements OnInit {
   users: User[];
 
   // we use dependency injection to inject our user service & alertify service
-  constructor(private userService: UserService , private alertify: AlertifyService, private route: ActivatedRoute ) { }
+  constructor(private userService: UserService , private alertify: AlertifyService, private route: ActivatedRoute) { }
 
+  // we want to pass our data to the route, then retrieve data from the route resolver
+  // there will be no way the component will be loaded without having the data available
   ngOnInit() {
+    // we need to subscribe to the route
     this.route.data.subscribe(data => {
       this.users = data['users'];
     });
