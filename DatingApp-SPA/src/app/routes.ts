@@ -10,7 +10,7 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
 
 // routes is an array with each route as an object
 // we provide a path and match it to a component
-// the last componet is a wildcard component
+// the last component is a wildcard component
 // angular router operates on a first line wins system
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
