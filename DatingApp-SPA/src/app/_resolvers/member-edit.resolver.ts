@@ -12,7 +12,7 @@ import { AuthService } from '../_services/auth.service';
 export class MemberEditResolver implements Resolve<User> {
     // in the constructor we bring userService to get the user, Router, & Alertify
     constructor(private userService: UserService, private router: Router, private authService: AuthService,
-        private alertify: AlertifyService) {}
+        private alertify: AlertifyService ) {}
 
     // resolve method needs a route from ActivatedRouteSnapshot
     // the method will return an observable of type user
