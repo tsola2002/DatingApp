@@ -79,6 +79,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       UserService,
       MemberDetailResolver,
       MemberListResolver,
+      MemberEditResolver,
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
    ],
    bootstrap: [
