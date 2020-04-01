@@ -28,7 +28,15 @@ namespace DatingApp.API.Data
         {
             _context.Remove(entity);
         }
- 
+
+        public async Task<Photo> GetPhoto(int id)
+        {
+            // we go into our context and return the firstordefault that matches the id that we pass in
+            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
+            // we return the actual photo
+            return photo;
+        }
+
         // we use our include method to include our photos since they're navigation properties
         // we need to specify async since its an asynce method 
         public async Task<User> GetUser(int id)
