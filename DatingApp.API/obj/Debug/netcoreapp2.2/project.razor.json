@@ -2958,7 +2958,7 @@
     ],
     "CSharpLanguageVersion": 703
   },
-  "RootNamespace": null,
+  "RootNamespace": "DatingApp.API",
   "Documents": [],
   "SerializationFormat": "0.2"
 }

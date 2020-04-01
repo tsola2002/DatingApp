@@ -1,9 +1,9 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\FINTRAK\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\FINTRAK\\.nuget\\packages",
-      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      "/Users/isaac/.dotnet/store/|arch|/|tfm|",
+      "/Users/isaac/.nuget/packages",
+      "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
     ]
   }
 }
