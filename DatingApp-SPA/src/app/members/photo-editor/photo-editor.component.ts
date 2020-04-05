@@ -21,6 +21,8 @@ export class PhotoEditorComponent implements OnInit {
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
+  // we add a reference to current main photo
+  currentMain: Photo;
 
   constructor(private authService: AuthService, private userService: UserService,
               private alertify: AlertifyService) { }
@@ -66,10 +68,11 @@ export class PhotoEditorComponent implements OnInit {
     // pass in the user id & the photo id
     // we need to subscribe to this
     this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.id).subscribe(() => {
-      console.log('successfully set to main');
-      // this.currentMain = this.photos.filter(p => p.isMain === true)[0];
-      // this.currentMain.isMain = false;
-      // photo.isMain = true;
+      // console.log('successfully set to main');
+      // we use array filter method to filter out every other method apart from the main photo
+       this.currentMain = this.photos.filter(p => p.isMain === true)[0];
+       this.currentMain.isMain = false;
+       photo.isMain = true;
       // this.authService.changeMemberPhoto(photo.url);
       // this.authService.currentUser.photoUrl = photo.url;
       // localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
