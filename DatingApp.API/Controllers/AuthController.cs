@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.Dtos;
 using DatingApp.API.Models;
@@ -22,12 +23,14 @@ namespace DatingApp.API.Controllers
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
 
         //we inject our repository & configuration settings into the controller
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
             _repo = repo;
             _config = config;
+            _mapper = mapper;
         }
 
         
@@ -65,6 +68,8 @@ namespace DatingApp.API.Controllers
                 //wen you manually throw an exception the rest of the code stops running
                 //throw new Exception("Computer says no!");
 
+                // we first retrieve the user from the repository
+                // this gives us the full user object
                 var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
                 //if the user does not exist display a 401(Unauthorized request)
@@ -103,9 +108,18 @@ namespace DatingApp.API.Controllers
                 //with the handler, we create a token & pass in the token descriptor
                 var token = tokenHandler.CreateToken(tokenDescriptor);
 
+                //we map to userforlistDTO
+                var user = _mapper.Map<UserForListDto>(userFromRepo);
+
+                
                 //we use the token handler to write our token as a response to our client
                 return Ok(new {
-                    token = tokenHandler.WriteToken(token)
+                    token = tokenHandler.WriteToken(token),
+                    //we send back the user as another property inside the anonymous object were already returning
+                    user
+
+                    
+
                 });
         
             //}

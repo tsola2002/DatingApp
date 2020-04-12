@@ -18,7 +18,9 @@ namespace DatingApp.API.Data
         {
             //we create a variable to store the user from our database
             //we use lambda expression to know which user were looking for 
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await _context.Users
+                                        .Include(p => p.Photos)
+                                        .FirstOrDefaultAsync(x => x.Username == username);
 
             //if we dont find a match user then return null
             if (user == null)

@@ -71,11 +71,16 @@ export class PhotoEditorComponent implements OnInit {
     this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.id).subscribe(() => {
       // console.log('successfully set to main');
       // we use array filter method to filter out every other method apart from the main photo
-       this.currentMain = this.photos.filter(p => p.isMain === true)[0];
-       this.currentMain.isMain = false;
-       photo.isMain = true;
+      this.currentMain = this.photos.filter(p => p.isMain === true)[0];
+      this.currentMain.isMain = false;
+      photo.isMain = true;
        // we want to emit our photourl out of our output property
-       this.getMemberPhotoChange.emit(photo.url);
+       // change the top photo url
+      this.authService.changeMemberPhoto(photo.url);
+       //overiding the set photo in local storage with new values
+      this.authService.currentUser.photoUrl = photo.url;
+      localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+      this.getMemberPhotoChange.emit(photo.url);
        // this.authService.changeMemberPhoto(photo.url);
        // this.authService.currentUser.photoUrl = photo.url;
        // localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
