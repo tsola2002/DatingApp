@@ -162,5 +162,58 @@ namespace DatingApp.API.Controllers
             return BadRequest("Could not set photo to main");
         }      
         
+        //user id which comes from the root & the int id which comes from the photo
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePhoto(int userId, int id)
+        {
+            // we'll check if the user is authorized
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            // we'll check that the id parameter matches the one from the photo
+            // we first get the user from the repo
+            var user = await _repo.GetUser(userId);
+
+            // we make sure the photo exists in the users photo collection
+            if (!user.Photos.Any(p => p.Id == id))
+                return Unauthorized();
+
+            // get the photos from the repo
+            var photoFromRepo = await _repo.GetPhoto(id);
+
+            // we check to see that its the main photo
+            if (photoFromRepo.IsMain)
+                return BadRequest("You cannot delete your main photo");
+
+            // while delete the photo both in cloudinary & SignOutResult sql database
+            if (photoFromRepo.PublicId != null)
+            {
+                //we create the deletion parameters
+                var deleteParams = new DeletionParams(photoFromRepo.PublicId);
+
+                // we store the response object from cloudinary in a variable
+                // we pass in delete params into our destroy method
+                var result = _cloudinary.Destroy(deleteParams);
+
+                // if cloudinary response object is okay then we delete the photo
+                
+                {
+                    _repo.Delete(photoFromRepo);
+                }
+            }
+
+            // if photofromrepo public id is null then we delete from repo
+            if (photoFromRepo.PublicId == null)
+            {
+                _repo.Delete(photoFromRepo);
+            }
+
+            //save all changes and return http OK response
+            if (await _repo.SaveAll())
+                return Ok();
+
+            // if it fails then you return a bad request
+            return BadRequest("Failed to delete the photo");
+        }
     }
 }
