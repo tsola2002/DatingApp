@@ -101,7 +101,21 @@ namespace DatingApp.API
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication(); 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                // configures a root that is bypassed if a route is static
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    // we give it a new controller to look for
+                    // api will know where index.html is when it goes to a route dat it doesn't recognize
+                    defaults: new {controller = "Fallback", action = "Index"}
+                );
+            });
+            // this looks for index html files
+            app.UseDefaultFiles();
+            // this code will serve static files
+            app.UseStaticFiles();
+
         }
     }
 }
