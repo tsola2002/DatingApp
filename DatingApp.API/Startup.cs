@@ -42,7 +42,7 @@ namespace DatingApp.API
 
         public void ConfigureProductionServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             ConfigureServices(services);
         }
@@ -91,7 +91,7 @@ namespace DatingApp.API
             }
             else
             {
-                //if we re not in development mode then use global exception handler
+                // if we re not in development mode then use global exception handler
                  app.UseExceptionHandler(builder => {
                          builder.Run(async context => {
                             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
@@ -106,12 +106,14 @@ namespace DatingApp.API
                  });
 
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                //this is a strict security transport header
-                //app.UseHsts();
+                // this is a strict security transport header
+                app.UseHsts();
             }
-
+            
+            // UNCOMMENT THIS FOR AZURE DEPLOYMENT INCASE OF ERRORS
+            //app.UseDeveloperExceptionPage();
             //add CORS support as middleware
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication(); 
             app.UseMvc(routes =>
