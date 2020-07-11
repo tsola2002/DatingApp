@@ -20,6 +20,10 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
+    // debugger
+    // this.logger.error('This is a priority level 1 error message...');
+    // this.logger.warn('This is a priority level 2 warn message...');
+
   }
 
   login() {
@@ -29,6 +33,8 @@ export class NavComponent implements OnInit {
     // our login method will take in the form fields
     // the method returns an observable we have to subscribe to observable
     // we use the nxt overload bcos we want to do something if theres an error
+    // debugger
+    
     this.authService.login(this.model).subscribe(next => {
      console.log('Logged in successfully');
       this.alertify.success('Logged in successfully');

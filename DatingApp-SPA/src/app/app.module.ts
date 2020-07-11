@@ -34,6 +34,7 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 
 
 
+
 export function tokenGetter() {
    return localStorage.getItem('token');
 }
