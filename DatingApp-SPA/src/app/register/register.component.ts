@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-register',
@@ -14,11 +15,17 @@ export class RegisterComponent implements OnInit {
   @Input() valuesFromHome: any;
   @Output() cancelRegister = new EventEmitter();
   registerForm: FormGroup;
+  bsConfig: Partial<BsDatepickerConfig>;
 
   constructor(private authService: AuthService, private alertify: AlertifyService, private fb: FormBuilder) { }
 
   ngOnInit() {
     // NEW WAY OF CREATING REACTIVE FORMS USING FORM BUILDER
+    this.createRegisterForm();
+    // change datepicker config theme color to red
+    this.bsConfig = {
+      containerClass: 'theme-red'
+    },
     this.createRegisterForm();
 
     // OLD WAY OF CREATING REACTIVE FORMS
@@ -45,7 +52,7 @@ export class RegisterComponent implements OnInit {
   }
 
   passwordMatchValidator(g: FormGroup) {
-    // if the values dont match we return an object with the key of mismatch true
+    // if the values dont match we return an object with the key of mismatch and a value of true
     return g.get('password').value === g.get('confirmPassword').value ? null : {'mismatch': true}; 
   }
 
