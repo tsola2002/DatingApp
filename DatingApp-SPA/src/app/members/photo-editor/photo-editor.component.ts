@@ -60,6 +60,15 @@ export class PhotoEditorComponent implements OnInit {
           isMain: res.isMain
         };
         this.photos.push(photo);
+
+        if(photo.isMain) {
+          // we want to emit our photourl out of our output property
+          // change the top photo url  
+          this.authService.changeMemberPhoto(photo.url);
+          //overiding the set photo in local storage with new values
+          this.authService.currentUser.photoUrl = photo.url;
+          localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+        }
       }
     };
   }
